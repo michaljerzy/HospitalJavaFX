@@ -68,28 +68,47 @@
             </VBox>
             <VBox prefWidth="250.0" style="-fx-background-color: #26283c;">
                <children>
-                  <ImageView id="picServerNotConnect" fx:id="picServerNotConnect" fitHeight="60.0" fitWidth="60.0" visible="false">
-                     <image>
-                        <Image url="@servernotwork.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="85.0" prefWidth="250.0" textFill="WHITE">
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitWidth="52.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#exit">
+                                 <image>
+                                    <Image url="@exit.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets left="190.0" top="10.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <ImageView id="picServerNotConnect" fx:id="picServerNotConnect" fitHeight="60.0" fitWidth="60.0" visible="false">
+                           <image>
+                              <Image url="@servernotwork.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView id="picServerConnect" fx:id="picServerConnect" fitHeight="100.0" fitWidth="95.0" visible="false">
+                           <image>
+                              <Image url="@serverwork.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="140.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <Label fx:id="txtError" contentDisplay="CENTER" prefHeight="85.0" prefWidth="250.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="25.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <ImageView id="picServerConnect" fx:id="picServerConnect" fitHeight="100.0" fitWidth="95.0" visible="false">
-                     <image>
-                        <Image url="@serverwork.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets left="140.0" />
-                     </VBox.margin>
-                  </ImageView>
                   <ImageView id="picLogIn" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#singIn">
                      <image>
                         <Image url="@loginIcon.png" />
                      </image>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </ImageView>
                </children></VBox>
          </children>
