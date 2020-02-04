@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.adminPanel.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="1011.0" stylesheets="@../loginPanel/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.adminPanel.AdminPanelController">
    <children>
       <SplitPane fx:id="parent" dividerPositions="0.23290386521308226" prefHeight="691.0" prefWidth="1011.0">
         <items>
@@ -30,13 +30,16 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="button2" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Button" textFill="WHITE">
+                        <Button fx:id="button2" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Dodaj pacjęta" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <padding>
                               <Insets left="40.0" />
                            </padding>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
                         </Button>
                         <Button fx:id="button3" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Button" textFill="WHITE">
                            <opaqueInsets>
