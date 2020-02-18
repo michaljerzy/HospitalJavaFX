@@ -54,11 +54,12 @@
                               <Insets left="40.0" />
                            </padding>
                         </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#handleClicksAddToDataBase" text="DODAJ KURWA" textFill="WHITE" />
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="770.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="688.0" prefWidth="770.0">
                <children>
                   <VBox layoutX="14.0" layoutY="14.0" prefHeight="669.0" prefWidth="140.0">
                      <children>
@@ -91,7 +92,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../loginPanel/fullpackstyling.css">
                            <children>
-                              <Label stylesheets="@../loginPanel/fullpackstyling.css" text="Nazwisko">
+                              <Label stylesheets="@../loginPanel/fullpackstyling.css" text="Pokój">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -131,15 +132,15 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                              <TextField fx:id="txtID" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
                            </children>
                         </HBox>
-                        <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                        <TextField alignment="CENTER" prefHeight="109.0" prefWidth="220.0" />
-                        <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                        <TextField alignment="CENTER" prefHeight="95.0" prefWidth="220.0" />
-                        <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                        <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                        <TextField fx:id="txtFirstName" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                        <TextField fx:id="txtSecondName" alignment="CENTER" prefHeight="109.0" prefWidth="220.0" />
+                        <TextField fx:id="txtRoom" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                        <TextField fx:id="txtEmail" alignment="CENTER" prefHeight="95.0" prefWidth="220.0" />
+                        <TextField fx:id="txtStreet" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                        <TextField fx:id="txtCity" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
                      </children>
                   </VBox>
                   <VBox layoutX="374.0" prefHeight="669.0" prefWidth="140.0">
@@ -202,7 +203,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../loginPanel/fullpackstyling.css">
                                  <children>
-                                    <Label stylesheets="@../loginPanel/fullpackstyling.css" text="Label">
+                                    <Label stylesheets="@../loginPanel/fullpackstyling.css" text="Telefon">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -219,15 +220,15 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                                    <TextField fx:id="txtVoivodeship" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
                                  </children>
                               </HBox>
-                              <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                              <TextField alignment="CENTER" prefHeight="109.0" prefWidth="220.0" />
-                              <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                              <TextField alignment="CENTER" prefHeight="95.0" prefWidth="220.0" />
-                              <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
-                              <TextField alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                              <TextField fx:id="txtZipCode" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                              <TextField fx:id="txtPolicyNumber" alignment="CENTER" prefHeight="109.0" prefWidth="220.0" />
+                              <TextField fx:id="txtChronicDiseases" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                              <TextField fx:id="txtAllergies" alignment="CENTER" prefHeight="95.0" prefWidth="220.0" />
+                              <TextField fx:id="txtOtherHealthConcerns" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
+                              <TextField fx:id="txtPhone" alignment="CENTER" prefHeight="100.0" prefWidth="235.0" />
                            </children>
                         </VBox>
                      </children>

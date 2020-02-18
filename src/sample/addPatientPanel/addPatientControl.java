@@ -7,14 +7,52 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.ConnectionSQL.ConnectionUtil;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class addPatientControl implements Initializable {
+
+    @FXML
+    private TextField txtVoivodeship;
+    @FXML
+    private TextField txtID;
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtSecondName;
+    @FXML
+    private TextField txtRoom;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private TextField txtStreet;
+    @FXML
+    private TextField txtCity;
+    @FXML
+    private TextField txtZipCode;
+    @FXML
+    private TextField txtPolicyNumber;
+    @FXML
+    private TextField txtChronicDiseases;
+    @FXML
+    private TextField txtAllergies;
+    @FXML
+    private TextField txtOtherHealthConcerns;
+    @FXML
+    private TextField txtPhone;
+
+    PreparedStatement preparedStatement;
+    Connection connection = (Connection) ConnectionUtil.conDB();
+    String sqlPatient = "SELECT * FROM HospitalDB.Patient";
 
     @FXML
     private SplitPane parent;
@@ -46,6 +84,9 @@ public class addPatientControl implements Initializable {
 
         }));
 
+    }
+    public void handleClicksAddToDataBase(javafx.scene.input.MouseEvent mouseEvent){
+        saveData();
     }
 
     public void handleClicksHome(javafx.scene.input.MouseEvent mouseEvent){
@@ -79,5 +120,32 @@ public class addPatientControl implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         makeDragable();
+    }
+
+    private String saveData(){
+        try {
+            String st = "INSERT INTO HospitalDB.Patient (PatientID, FirstName, Lastname, Email, Phone, StreetAdress, City, Voivodeship," +
+                    " ZipCode, ChronicDiseases, PolicyNumber, Allergies, RoomID, OtherHealthConcerns) VALUES (?, ? , ? , ? , ? , ? , ? , ? , ? , ? ,?, ? , ? ,?)";
+            preparedStatement = (PreparedStatement)this.connection.prepareStatement(st);
+            preparedStatement.setString(1, txtID.getText());
+            preparedStatement.setString(2, txtFirstName.getText());
+            preparedStatement.setString(3, txtSecondName.getText());
+            preparedStatement.setString(4, txtEmail.getText());
+            preparedStatement.setString(5, txtPhone.getText());
+            preparedStatement.setString(6, txtStreet.getText());
+            preparedStatement.setString(7, txtCity.getText());
+            preparedStatement.setString(8, txtVoivodeship.getText());
+            preparedStatement.setString(9, txtZipCode.getText());
+            preparedStatement.setString(10, txtChronicDiseases.getText());
+            preparedStatement.setString(11, txtPolicyNumber.getText());
+            preparedStatement.setString(12, txtAllergies.getText());
+            preparedStatement.setString(13, txtRoom.getText());
+            preparedStatement.setString(14, txtOtherHealthConcerns.getText());
+            preparedStatement.executeUpdate();
+            return "Success";
+        }catch (SQLException var2){
+            System.out.println(var2.getMessage());
+            return "Exception";
+        }
     }
 }
