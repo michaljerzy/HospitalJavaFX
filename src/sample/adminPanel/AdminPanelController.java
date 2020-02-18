@@ -43,7 +43,6 @@ public class AdminPanelController implements Initializable {
         makeDragable();
     }
 
-    //class for the mouse touching panel and setup Opacity
     private void makeDragable(){
         parent.setOnMousePressed(((mouseEvent) ->{
             x = mouseEvent.getSceneX();
@@ -72,25 +71,9 @@ public class AdminPanelController implements Initializable {
     }
 
 
-    public void handleClicks(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource() == button1){
-            // new FadeIn(button1).play();
 
-            try {
-                Node node = (Node)mouseEvent.getSource();
-                Stage stage = (Stage)node.getScene().getWindow();
-                stage.close();
-                Scene scene = new Scene((Parent)FXMLLoader.load(this.getClass().getResource("/sample/adminPanel/adminPanel.fxml")));
-                //stage.initStyle(StageStyle.UNDECORATED);
-                stage.setScene(scene);
-                stage.show();
-            }catch (IOException var5){
-                System.err.println(var5.getMessage());
-            }
-        }
-        if(mouseEvent.getSource() == button2){
-            // new FadeIn(button1).play();
 
+    public void handleClicksAddPatient(MouseEvent mouseEvent) {
             try {
                 Node node = (Node)mouseEvent.getSource();
                 Stage stage = (Stage)node.getScene().getWindow();
@@ -103,5 +86,18 @@ public class AdminPanelController implements Initializable {
                 System.err.println(var5.getMessage());
             }
         }
-    }
+
+     public void handleClicksPatient(MouseEvent mouseEvent){
+         try {
+             Node node = (Node)mouseEvent.getSource();
+             Stage stage = (Stage)node.getScene().getWindow();
+             stage.close();
+             Scene scene = new Scene((Parent)FXMLLoader.load(this.getClass().getResource("/sample/patientPanel/patientPanel.fxml")));
+             //stage.initStyle(StageStyle.UNDECORATED);
+             stage.setScene(scene);
+             stage.show();
+         }catch (IOException var5){
+             System.err.println(var5.getMessage());
+         }
+     }
 }

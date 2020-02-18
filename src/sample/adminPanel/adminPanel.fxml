@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="1011.0" stylesheets="@../loginPanel/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.adminPanel.AdminPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="1011.0" stylesheets="@../loginPanel/fullpackstyling.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.adminPanel.AdminPanelController">
    <children>
       <SplitPane fx:id="parent" dividerPositions="0.23290386521308226" prefHeight="691.0" prefWidth="1011.0">
         <items>
@@ -19,7 +13,7 @@
                <children>
                   <VBox layoutY="-1.0" prefHeight="691.0" prefWidth="231.0" style="-fx-background-color: #423265;">
                      <children>
-                        <Button fx:id="button1" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="229.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Pacjęci" textFill="WHITE">
+                        <Button fx:id="butHome" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="229.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Home" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -30,7 +24,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="button2" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Dodaj pacjęta" textFill="WHITE">
+                        <Button fx:id="button1" alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#handleClicksPatient" prefHeight="74.0" prefWidth="229.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Pacjęci" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -41,13 +35,27 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="button3" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Button" textFill="WHITE">
+                        <Button fx:id="button2" alignment="BASELINE_LEFT" mnemonicParsing="false"  onMouseClicked="#handleClicksAddPatient" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Dodaj pacjęta" textFill="WHITE">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <padding>
                               <Insets left="40.0" />
                            </padding>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="button3" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="74.0" prefWidth="232.0" stylesheets="@../loginPanel/fullpackstyling.css" text="Recepta" textFill="WHITE">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
                         </Button>
                      </children>
                   </VBox>
@@ -55,21 +63,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="770.0">
                <children>
-                  <Pane layoutX="3.0" layoutY="174.0" prefHeight="515.0" prefWidth="764.0">
-                     <children>
-                        <TableView layoutX="-1.0" layoutY="-1.0" prefHeight="515.0" prefWidth="764.0" stylesheets="@../loginPanel/fullpackstyling.css">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="253.0" layoutY="133.0" prefHeight="41.0" prefWidth="503.0">
-                     <children>
-                        <TextField layoutX="-1.0" layoutY="-1.0" prefHeight="41.0" prefWidth="503.0" stylesheets="@../loginPanel/fullpackstyling.css" />
-                     </children>
-                  </Pane>
+                  <Pane layoutX="3.0" layoutY="174.0" prefHeight="515.0" prefWidth="764.0" />
+                  <Pane layoutX="253.0" layoutY="133.0" prefHeight="41.0" prefWidth="503.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
