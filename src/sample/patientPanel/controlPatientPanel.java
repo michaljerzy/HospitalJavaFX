@@ -1,21 +1,44 @@
 package sample.patientPanel;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import sample.ConnectionSQL.ConnectionUtil;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class controlPatientPanel implements Initializable {
+
+    @FXML
+    private TextField txtSearch;
+    @FXML
+    private ComboBox cbSearch;
+    @FXML
+    private TableView tblPatient;
+
+    private ObservableList<ObservableList> data;
+
+
+    PreparedStatement preparedStatement;
+    Connection connection = (Connection) ConnectionUtil.conDB();
+    //String sqlPatient = "SELECT * FROM HospitalDB.Patient";
 
     double x = 0, y = 0;
 
@@ -25,7 +48,12 @@ public class controlPatientPanel implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cbSearch.getItems().addAll(new String[]{"Pesel", "Imie", "Nazwisko"});
+
         makeDragable();
+        fetColumnList("SELECT * FROM HospitalDB.Patient");
+        fetRowList("SELECT * FROM HospitalDB.Patient");
+
     }
 
     private void makeDragable(){
@@ -52,6 +80,23 @@ public class controlPatientPanel implements Initializable {
             stage.setOpacity(1.0f);
 
         }));
+
+    }
+
+    //coś tutaj jest nie tak, getID raczej nie ma sensu
+    public void handleClicksSearchPatient(javafx.scene.input.MouseEvent mouseEvent){
+        if(cbSearch.getValue() == "Pesel") {
+            String st = "SELECT * FROM HospitalDB.Patient WHERE PatientID = ?";
+            try {
+                preparedStatement = (PreparedStatement) this.connection.prepareStatement(st);
+                preparedStatement.setString(1, txtSearch.getId());
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            fetColumnList(st);
+            fetRowList(st);
+        }
 
     }
 
@@ -82,4 +127,50 @@ public class controlPatientPanel implements Initializable {
             System.err.println(var5.getMessage());
         }
     }
+
+    private void fetRowList(String sqlPatient) {
+        this.data = FXCollections.observableArrayList();
+
+        try {
+            ResultSet rs = this.connection.createStatement().executeQuery(sqlPatient);
+
+            while(rs.next()) {
+                ObservableList row = FXCollections.observableArrayList();
+
+                for(int i = 1; i <= rs.getMetaData().getColumnCount(); ++i) {
+                    row.add(rs.getString(i));
+                }
+
+                System.out.println("Row [1] added " + row);
+                this.data.add(row);
+            }
+
+            this.tblPatient.setItems(this.data);
+        } catch (SQLException var4) {
+            System.err.println(var4.getMessage());
+        }
+
+    }
+
+    private void fetColumnList(String sqlPatient) {
+        try {
+            ResultSet rs = this.connection.createStatement().executeQuery(sqlPatient);
+
+            for(int i = 0; i < rs.getMetaData().getColumnCount(); ++i) {
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1).toUpperCase());
+                int finalI = i;
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        return new SimpleStringProperty(((ObservableList)param.getValue()).get(finalI).toString());
+                    }
+                });
+                tblPatient.getColumns().removeAll(new Object[]{col});
+                tblPatient.getColumns().addAll(new Object[]{col});
+                System.out.println("Column [" + i + "] ");
+            }
+        } catch (Exception var5) {
+            System.out.println("Error " + var5.getMessage());
+        }
+    }
+
 }

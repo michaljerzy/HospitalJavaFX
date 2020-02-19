@@ -6,8 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.ConnectionSQL.ConnectionUtil;
 
@@ -21,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class addPatientControl implements Initializable {
 
+    @FXML
+    private Label lblStatus;
     @FXML
     private TextField txtVoivodeship;
     @FXML
@@ -52,12 +56,13 @@ public class addPatientControl implements Initializable {
 
     PreparedStatement preparedStatement;
     Connection connection = (Connection) ConnectionUtil.conDB();
-    String sqlPatient = "SELECT * FROM HospitalDB.Patient";
+    //String sqlPatient = "SELECT * FROM HospitalDB.Patient";
 
     @FXML
     private SplitPane parent;
 
     double x = 0, y = 0;
+
 
     private void makeDragable(){
         parent.setOnMousePressed(((mouseEvent) ->{
@@ -85,10 +90,19 @@ public class addPatientControl implements Initializable {
         }));
 
     }
+    //function button click, check and safe data
     public void handleClicksAddToDataBase(javafx.scene.input.MouseEvent mouseEvent){
-        saveData();
+        if(txtID.getText().isEmpty() && txtFirstName.getText().isEmpty() && txtSecondName.getText().isEmpty() && txtVoivodeship.getText().isEmpty()&& txtAllergies.getText().isEmpty() &&
+                txtPolicyNumber.getText().isEmpty() && txtOtherHealthConcerns.getText().isEmpty() && txtRoom.getText().isEmpty() && txtChronicDiseases.getText().isEmpty() && txtZipCode.getText().isEmpty() &&
+                txtCity.getText().isEmpty() && txtPhone.getText().isEmpty() && txtStreet.getText().isEmpty() && txtRoom.getText().isEmpty()) {
+            saveData();
+        }else {
+            lblStatus.setTextFill(Color.TOMATO);
+            lblStatus.setText("Wypełnij każdą tabelkę!");
+        }
     }
 
+    //open new Panel
     public void handleClicksHome(javafx.scene.input.MouseEvent mouseEvent){
         try {
             Node node = (Node)mouseEvent.getSource();
@@ -103,6 +117,7 @@ public class addPatientControl implements Initializable {
         }
     }
 
+    //open new Panel
     public void handleClicksPatient(javafx.scene.input.MouseEvent mouseEvent){
         try {
             Node node = (Node)mouseEvent.getSource();
@@ -119,9 +134,11 @@ public class addPatientControl implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblStatus.setVisible(false);
         makeDragable();
     }
 
+    //save data with database HosptalDB and table Patient
     private String saveData(){
         try {
             String st = "INSERT INTO HospitalDB.Patient (PatientID, FirstName, Lastname, Email, Phone, StreetAdress, City, Voivodeship," +
@@ -142,9 +159,15 @@ public class addPatientControl implements Initializable {
             preparedStatement.setString(13, txtRoom.getText());
             preparedStatement.setString(14, txtOtherHealthConcerns.getText());
             preparedStatement.executeUpdate();
+            lblStatus.setVisible(true);
+            lblStatus.setTextFill(Color.GREEN);
+            lblStatus.setText("Dodanie danych do bazy powiodło się");
             return "Success";
         }catch (SQLException var2){
             System.out.println(var2.getMessage());
+            lblStatus.setVisible(true);
+            lblStatus.setTextFill(Color.TOMATO);
+            lblStatus.setText(var2.getMessage());
             return "Exception";
         }
     }
