@@ -141,8 +141,36 @@ public class addPatientControl implements Initializable {
     //save data with database HosptalDB and table Patient
     private String saveData(){
         try {
-            String st = "INSERT INTO HospitalDB.Patient (PatientID, FirstName, Lastname, Email, Phone, StreetAdress, City, Voivodeship," +
-                    " ZipCode, ChronicDiseases, PolicyNumber, Allergies, RoomID, OtherHealthConcerns) VALUES (?, ? , ? , ? , ? , ? , ? , ? , ? , ? ,?, ? , ? ,?)";
+            String st = "INSERT INTO HospitalDB.Patient\n" +
+                    "(PatientID,\n" +
+                    "FirstName,\n" +
+                    "Lastname,\n" +
+                    "Email,\n" +
+                    "Phone,\n" +
+                    "StreetAdress,\n" +
+                    "City,\n" +
+                    "Voivodeship,\n" +
+                    "ZipCode,\n" +
+                    "ChronicDiseases,\n" +
+                    "PolicyNumber,\n" +
+                    "Allergies,\n" +
+                    "RoomID,\n" +
+                    "OtherHealthConcerns)\n" +
+                    "VALUES\n" +
+                    "(?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?)";
             preparedStatement = (PreparedStatement)this.connection.prepareStatement(st);
             preparedStatement.setString(1, txtID.getText());
             preparedStatement.setString(2, txtFirstName.getText());

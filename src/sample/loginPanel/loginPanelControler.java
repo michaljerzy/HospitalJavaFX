@@ -113,7 +113,7 @@ public class loginPanelControler implements Initializable {
     private boolean logIn(){
         String email = this.txtUsername.getText();
         String password = this.txtPassword.getText();
-        String sql = "SELECT * FROM Hospital_official.UserProgram WHERE Email = ? and Password = ?";
+        String sql = "SELECT * FROM HospitalDB.ProgramUser WHERE Email = ? and Password = ?";
 
         try {
             preparedStatement = con.prepareStatement(sql);
