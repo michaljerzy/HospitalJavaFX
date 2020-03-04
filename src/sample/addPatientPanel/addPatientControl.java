@@ -95,10 +95,12 @@ public class addPatientControl implements Initializable {
         if(txtID.getText().isEmpty() && txtFirstName.getText().isEmpty() && txtSecondName.getText().isEmpty() && txtVoivodeship.getText().isEmpty()&& txtAllergies.getText().isEmpty() &&
                 txtPolicyNumber.getText().isEmpty() && txtOtherHealthConcerns.getText().isEmpty() && txtRoom.getText().isEmpty() && txtChronicDiseases.getText().isEmpty() && txtZipCode.getText().isEmpty() &&
                 txtCity.getText().isEmpty() && txtPhone.getText().isEmpty() && txtStreet.getText().isEmpty() && txtRoom.getText().isEmpty()) {
-            saveData();
-        }else {
+
             lblStatus.setTextFill(Color.TOMATO);
+            System.out.println("Error with add to the database");
             lblStatus.setText("Wypełnij każdą tabelkę!");
+        }else {
+            saveData();
         }
     }
 

@@ -11,25 +11,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import sample.ConnectionSQL.ConnectionUtil;
+import sample.Testy.Person;
+import sample.forOurClass.Patient;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class controlPatientPanel implements Initializable {
 
     @FXML
     private TextField txtSearch;
-    @FXML
-    private ComboBox cbSearch;
+
     @FXML
     private TableView tblPatient;
 
@@ -48,11 +48,15 @@ public class controlPatientPanel implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cbSearch.getItems().addAll(new String[]{"Pesel", "Imie", "Nazwisko"});
-
         makeDragable();
-        fetColumnList("SELECT * FROM HospitalDB.Patient");
-        fetRowList("SELECT * FROM HospitalDB.Patient");
+
+        try {
+            TableSample("SELECT * FROM HospitalDB.Patient");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 
@@ -83,21 +87,23 @@ public class controlPatientPanel implements Initializable {
 
     }
 
-    //coś tutaj jest nie tak, getID raczej nie ma sensu
-    public void handleClicksSearchPatient(javafx.scene.input.MouseEvent mouseEvent){
-        if(cbSearch.getValue() == "Pesel") {
-            String st = "SELECT * FROM HospitalDB.Patient WHERE PatientID = ?";
-            try {
-                preparedStatement = (PreparedStatement) this.connection.prepareStatement(st);
-                preparedStatement.setString(1, txtSearch.getId());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            fetColumnList(st);
-            fetRowList(st);
-        }
+    public void handleClicksSearchPatient(javafx.scene.input.MouseEvent mouseEvent) throws SQLException {
+        String string;
+        string = txtSearch.getText();
+                TableSample("SELECT * FROM HospitalDB.Patient WHERE PatientID  =" + "\"" + string + "\"" + " OR " + "FirstName = " + "\"" + string + "\"" + " OR "
+                        + "Lastname = " + "\"" + string + "\"" + " OR " + "Email = " + "\"" + string + "\"" + " OR " + "Phone = " + "\"" + string + "\"" + " OR " + "StreetAdress = "
+                        + "\"" + string + "\"" + " OR " + "City = " + "\"" + string + "\"" + " OR " + "Voivodeship = " + "\"" + string + "\""
+                        + " OR " + "ZipCode = " + "\"" + string + "\"" + " OR " +"ChronicDiseases = "
+                        + "\"" + string + "\"" + " OR " + "PolicyNumber = " + "\"" + string + "\"" + " OR " + "Allergies = " + "\"" + string + "\"" + " OR " + "RoomID = " + "\"" + string + "\"" + " OR " + "OtherHealthConcerns = " + "\"" + string + "\"" );
 
+
+    }
+
+    public void removeAllRows(){
+        for (int i = 0; i<tblPatient.getItems().size(); i++){
+            tblPatient.getItems().clear();
+            tblPatient.getColumns().clear();
+        }
     }
 
     public void handleClicksAddPatient(javafx.scene.input.MouseEvent mouseEvent) {
@@ -128,6 +134,82 @@ public class controlPatientPanel implements Initializable {
         }
     }
 
+
+    public void TableSample(String sql) throws SQLException {
+        removeAllRows();
+        final ObservableList<Patient> data = FXCollections.observableArrayList();
+        Connection conn = ConnectionUtil.conDB();
+        Statement stm;
+        stm = conn.createStatement();
+        ResultSet rst;
+        int l = 0;
+        rst = stm.executeQuery(sql);
+        removeAllRows();
+        while (rst.next()){
+            Patient patient = new Patient(rst.getString("PatientID"),rst.getString("FirstName"), rst.getString("Lastname"),
+                                          rst.getString("Email"), rst.getString("Phone"), rst.getString("StreetAdress"), rst.getString("City"),
+                                          rst.getString("Voivodeship"), rst.getString("ZipCode"), rst.getString("ChronicDiseases"), rst.getString("PolicyNumber"),
+                                          rst.getString("Allergies"), rst.getString("RoomID"), rst.getString("OtherHealthConcerns"));
+            data.add(patient);
+            l++;
+        }
+        for (int i = 0; i < l; i++){
+            data.get(i);
+        }
+
+
+        TableColumn idNameCol = new TableColumn();
+        idNameCol.setText("Pesel");
+        idNameCol.setCellValueFactory(new PropertyValueFactory("PatientID"));
+        TableColumn firstNameCol = new TableColumn();
+        firstNameCol.setText("Imię");
+        firstNameCol.setCellValueFactory(new PropertyValueFactory("FirstName"));
+        TableColumn lastNameCol = new TableColumn();
+        lastNameCol.setText("Nazwisko");
+        //emailCol.setMinWidth(200);
+        lastNameCol.setCellValueFactory(new PropertyValueFactory("Lastname"));
+        TableColumn emailCol = new TableColumn();
+        emailCol.setText("Email");
+        emailCol.setCellValueFactory(new PropertyValueFactory("Email"));
+        TableColumn phoneCol = new TableColumn();
+        phoneCol.setText("Telefon");
+        phoneCol.setCellValueFactory(new PropertyValueFactory("Phone"));
+        TableColumn streetCol = new TableColumn();
+        streetCol.setText("Adres");
+        streetCol.setCellValueFactory(new PropertyValueFactory("StreetAdress"));
+        TableColumn cityCol = new TableColumn();
+        cityCol.setText("Miasto");
+        cityCol.setCellValueFactory(new PropertyValueFactory("City"));
+        TableColumn voivodeshipCol = new TableColumn();
+        voivodeshipCol.setText("Województwo");
+        voivodeshipCol.setCellValueFactory(new PropertyValueFactory("Voivodeship"));
+        TableColumn zipcodeCol = new TableColumn();
+        zipcodeCol.setText("Kod pocztowy");
+        zipcodeCol.setCellValueFactory(new PropertyValueFactory("ZipCode"));
+        TableColumn chronicDiseasesCol = new TableColumn();
+        chronicDiseasesCol.setText("Choroby przewlekłe");
+        chronicDiseasesCol.setCellValueFactory(new PropertyValueFactory("ChronicDiseases"));
+        TableColumn policyNumberCol = new TableColumn();
+        policyNumberCol.setText("Numer ubezpieczenia");
+        policyNumberCol.setCellValueFactory(new PropertyValueFactory("PolicyNumber"));
+        TableColumn allergiesCol = new TableColumn();
+        allergiesCol.setText("Alergie");
+        allergiesCol.setCellValueFactory(new PropertyValueFactory("Allergies"));
+        TableColumn roomIDCol = new TableColumn();
+        roomIDCol.setText("Numer pokoju");
+        roomIDCol.setCellValueFactory(new PropertyValueFactory("RoomID"));
+        TableColumn otherHealthConcernsCol = new TableColumn();
+        otherHealthConcernsCol.setText("Inne choroby");
+        otherHealthConcernsCol.setCellValueFactory(new PropertyValueFactory("OtherHealthConcerns"));
+        tblPatient.setItems(data);
+        tblPatient.getColumns().addAll(idNameCol, firstNameCol, lastNameCol, emailCol,phoneCol, streetCol, cityCol,
+                                      voivodeshipCol, zipcodeCol, chronicDiseasesCol, policyNumberCol, allergiesCol, roomIDCol);
+
+    }
+
+
+    /*
+
     private void fetRowList(String sqlPatient) {
         this.data = FXCollections.observableArrayList();
 
@@ -152,6 +234,8 @@ public class controlPatientPanel implements Initializable {
 
     }
 
+
+
     private void fetColumnList(String sqlPatient) {
         try {
             ResultSet rs = this.connection.createStatement().executeQuery(sqlPatient);
@@ -172,5 +256,7 @@ public class controlPatientPanel implements Initializable {
             System.out.println("Error " + var5.getMessage());
         }
     }
+
+     */
 
 }

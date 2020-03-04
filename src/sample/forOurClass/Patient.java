@@ -19,6 +19,23 @@ public class Patient {
     public Patient() {
     }
 
+    public Patient(String patientID, String firstName, String lastname, String email, String phone, String streetAdress, String city, String voivodeship, String zipCode, String chronicDiseases, String policyNumber, String allergies, String roomID, String otherHealthConcerns) {
+        PatientID = patientID;
+        FirstName = firstName;
+        Lastname = lastname;
+        Email = email;
+        Phone = phone;
+        StreetAdress = streetAdress;
+        City = city;
+        Voivodeship = voivodeship;
+        ZipCode = zipCode;
+        ChronicDiseases = chronicDiseases;
+        PolicyNumber = policyNumber;
+        Allergies = allergies;
+        RoomID = roomID;
+        OtherHealthConcerns = otherHealthConcerns;
+    }
+
     public String getPatientID() {
         return PatientID;
     }
